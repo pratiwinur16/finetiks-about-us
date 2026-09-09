@@ -1,0 +1,284 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { List, X } from "@phosphor-icons/react";
+import { useLanguage } from "./LanguageProvider";
+
+const NAV_LINKS = {
+  id: [
+    { label: "Home", href: "#", active: true, hasDropdown: false },
+    { label: "Produk", href: "#", active: false, hasDropdown: true },
+    { label: "Rich Mindset", href: "#", active: false, hasDropdown: true },
+    { label: "Blog", href: "#", active: false, hasDropdown: false },
+    { label: "Lainnya", href: "#", active: false, hasDropdown: true },
+  ],
+  en: [
+    { label: "Home", href: "#", active: true, hasDropdown: false },
+    { label: "Products", href: "#", active: false, hasDropdown: true },
+    { label: "Rich Mindset", href: "#", active: false, hasDropdown: true },
+    { label: "Blog", href: "#", active: false, hasDropdown: false },
+    { label: "More", href: "#", active: false, hasDropdown: true },
+  ],
+};
+
+const DOWNLOAD_LABEL = {
+  id: "Download FINETIKS",
+  en: "Download FINETIKS",
+};
+
+export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { lang, setLang } = useLanguage();
+  const navLinks = NAV_LINKS[lang];
+
+  // Blend with the hero while it's behind the fixed header; switch to a solid
+  // header once the page scrolls past it, so the navbar always reads clearly
+  // against whatever section arrives underneath.
+  useEffect(() => {
+    const heroEl = document.getElementById("dark-zone");
+    if (!heroEl) {
+      setScrolled(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { rootMargin: "-105px 0px 0px 0px", threshold: 0 }
+    );
+    observer.observe(heroEl);
+    return () => observer.disconnect();
+  }, []);
+
+  const isTransparent = !scrolled && !mobileOpen;
+  const textColor = isTransparent ? "text-white" : "text-text-primary";
+
+  return (
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        backgroundColor: isTransparent ? "rgba(0,0,0,0)" : "rgba(255,255,255,1)",
+        boxShadow: isTransparent ? "0 0 0 rgba(0,0,0,0)" : "0 2px 8px rgba(0,0,0,0.08)",
+      }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="fixed top-0 left-0 right-0 z-50"
+    >
+      <div className="mx-auto flex h-[105px] max-w-[1440px] items-center justify-between gap-[33px] px-6 md:justify-center">
+        <Link href="/" className="relative h-[26px] w-[137px] shrink-0">
+          <Image
+            src="/images/logo-finetiks-blue.svg"
+            alt="FINETIKS"
+            fill
+            sizes="137px"
+            className={`object-contain transition-[filter] duration-300 ${
+              isTransparent ? "brightness-0 invert" : ""
+            }`}
+          />
+        </Link>
+
+        <nav className="hidden items-center gap-3 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className={`group flex flex-col items-center justify-center gap-1 rounded-md px-3 py-0.5 ${
+                link.active ? "font-bold" : "font-semibold"
+              } text-base ${textColor} transition-colors duration-300 hover:opacity-80`}
+            >
+              <span className="flex items-center gap-1 whitespace-nowrap">
+                {link.label}
+                {link.hasDropdown && (
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="transition-transform duration-200 group-hover:rotate-180"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+              </span>
+              <span
+                className={`h-[2px] w-6 rounded-full bg-grape transition-opacity duration-200 ${
+                  link.active ? "opacity-100" : "opacity-0 group-hover:opacity-40"
+                }`}
+              />
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden items-center gap-[19px] md:flex">
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className={`flex w-[202px] items-center justify-center gap-0.5 rounded-md px-4 py-2 shadow-md transition-colors duration-300 hover:shadow-lg ${
+              isTransparent ? "bg-white text-black" : "bg-black text-white"
+            }`}
+          >
+            <span className="whitespace-nowrap text-base font-bold">
+              {DOWNLOAD_LABEL[lang]}
+            </span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect
+                x="7"
+                y="2"
+                width="10"
+                height="20"
+                rx="2"
+                stroke="currentColor"
+                strokeWidth={1.5}
+              />
+              <path d="M11 18h2" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" />
+            </svg>
+          </motion.button>
+
+          <div
+            className={`flex h-[41px] w-[127px] items-center justify-center gap-2 rounded-3xl border p-2 transition-colors duration-300 ${
+              isTransparent
+                ? "border-white/25 bg-white/10"
+                : "border-grape-tint-2 bg-neutral-100"
+            }`}
+          >
+            <button
+              onClick={() => setLang("id")}
+              className={`flex items-center gap-1.5 text-sm transition-colors ${
+                lang === "id"
+                  ? `font-bold ${isTransparent ? "text-white" : "text-text-primary"}`
+                  : `font-medium ${isTransparent ? "text-white/60" : "text-text-tertiary"}`
+              }`}
+            >
+              ID
+              <span className="text-base leading-none">🇮🇩</span>
+            </button>
+            <span
+              className={`h-[25px] w-px rotate-90 rounded-md transition-colors duration-300 ${
+                isTransparent ? "bg-white/25" : "bg-grape/20"
+              }`}
+            />
+            <button
+              onClick={() => setLang("en")}
+              className={`flex items-center gap-1.5 text-sm transition-colors ${
+                lang === "en"
+                  ? `font-bold ${isTransparent ? "text-white" : "text-text-primary"}`
+                  : `font-medium ${isTransparent ? "text-white/60" : "text-text-tertiary"}`
+              }`}
+            >
+              EN
+              <span className="text-base leading-none">🇬🇧</span>
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          className={`flex h-10 w-10 items-center justify-center rounded-md ${textColor} transition-colors duration-300 md:hidden`}
+        >
+          {mobileOpen ? <X size={26} weight="bold" /> : <List size={26} weight="bold" />}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="overflow-hidden border-t border-neutral-200 bg-white md:hidden"
+          >
+            <nav className="flex flex-col px-6 py-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center justify-between border-b border-neutral-200 py-3 text-base ${
+                    link.active ? "font-bold text-grape" : "font-semibold text-text-primary"
+                  }`}
+                >
+                  {link.label}
+                  {link.hasDropdown && (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="m6 9 6 6 6-6"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="flex flex-col gap-4 px-6 pb-6 pt-2">
+              <button className="flex w-full items-center justify-center gap-0.5 rounded-md bg-black px-4 py-3 text-white shadow-md">
+                <span className="whitespace-nowrap text-base font-bold">
+                  {DOWNLOAD_LABEL[lang]}
+                </span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect
+                    x="7"
+                    y="2"
+                    width="10"
+                    height="20"
+                    rx="2"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                  />
+                  <path
+                    d="M11 18h2"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+
+              <div className="flex h-[41px] w-[127px] items-center justify-center gap-2 self-center rounded-3xl border border-grape-tint-2 bg-neutral-100 p-2">
+                <button
+                  onClick={() => setLang("id")}
+                  className={`flex items-center gap-1.5 text-sm transition-colors ${
+                    lang === "id"
+                      ? "font-bold text-text-primary"
+                      : "font-medium text-text-tertiary"
+                  }`}
+                >
+                  ID
+                  <span className="text-base leading-none">🇮🇩</span>
+                </button>
+                <span className="h-[25px] w-px rotate-90 rounded-md bg-grape/20" />
+                <button
+                  onClick={() => setLang("en")}
+                  className={`flex items-center gap-1.5 text-sm transition-colors ${
+                    lang === "en"
+                      ? "font-bold text-text-primary"
+                      : "font-medium text-text-tertiary"
+                  }`}
+                >
+                  EN
+                  <span className="text-base leading-none">🇬🇧</span>
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
+  );
+}
