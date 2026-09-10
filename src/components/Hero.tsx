@@ -36,7 +36,7 @@ function PhotoTile({ tile, index, className = "" }: { tile: Tile; index: number;
         src={tile.src}
         alt={tile.alt}
         fill
-        sizes="25vw"
+        sizes="(max-width: 639px) 100vw, 25vw"
         className={`object-cover transition-transform duration-500 ease-out group-hover:scale-110 ${tile.position ?? ""}`}
       />
       <div className="pointer-events-none absolute inset-0 bg-grape-dark/0 transition-colors duration-300 group-hover:bg-grape-dark/10" />
