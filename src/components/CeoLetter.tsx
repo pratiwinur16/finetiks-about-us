@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Play, HandHeart } from "@phosphor-icons/react";
+import { Play } from "@phosphor-icons/react";
 import { useLanguage } from "./LanguageProvider";
 
 const YOUTUBE_ID = "83Evw94yZK0";
@@ -14,8 +14,11 @@ const COPY = {
     heading: "Pesan dari CEO Kami",
     videoTitle: "Letter from CEO: Jangan Tunggu Gagal Baru Sadar",
     dear: "Untuk Pengguna FINETIKS,",
-    paragraph:
-      "Setelah 25 tahun berkarier di industri keuangan global, saya melihat banyak orang — termasuk keluarga saya sendiri — kesulitan mengelola uang meski sudah bekerja keras. Dari situlah FINETIKS lahir: agar setiap orang bisa merasa mengendalikan uangnya, bukan takut menghadapinya.",
+    paragraphs: [
+      "Saya masih ingat betapa banyak orang di sekitar saya, termasuk keluarga dan teman sendiri, yang kesulitan mengelola keuangan meski sudah bekerja keras setiap hari. Setelah lebih dari 25 tahun berkarier di industri keuangan global, saya melihat ada jarak besar antara produk keuangan yang rumit dan kebutuhan nyata masyarakat untuk menabung serta merencanakan masa depan.",
+      "Dari situlah FINETIKS lahir — dari keyakinan sederhana bahwa setiap orang berhak merasa mengendalikan uangnya sendiri, bukan takut menghadapinya. Di video ini, saya berbagi cerita tentang perjalanan membangun FINETIKS, dari ide awal hingga menjadi platform yang kini membantu masyarakat Indonesia menabung dan mengelola keuangan dengan lebih baik.",
+      "Terima kasih telah menjadi bagian dari perjalanan ini.",
+    ],
     closingLabel: "Peluk virtual,",
     signature: "Cameron Goh, CEO FINETIKS",
     playLabel: "Putar video",
@@ -25,8 +28,11 @@ const COPY = {
     heading: "A Message From Our CEO",
     videoTitle: "Letter from CEO: Jangan Tunggu Gagal Baru Sadar",
     dear: "Dear FINETIKS Users,",
-    paragraph:
-      "After 25 years in global finance, I saw too many people — including my own family — struggle to manage money despite working hard. That's why FINETIKS exists: so everyone can feel in control of their money, not intimidated by it.",
+    paragraphs: [
+      "I still remember how many people around me — including my own family and friends — struggled to manage their money despite working hard every day. After more than 25 years in global financial services, I saw a real gap between complicated financial products and people's everyday need to save and plan for the future.",
+      "That's where FINETIKS came from — a simple belief that everyone deserves to feel in control of their money, not intimidated by it. In this video, I share the story of building FINETIKS, from the first idea to a platform that now helps Indonesians save and manage their money better.",
+      "Thank you for being part of this journey.",
+    ],
     closingLabel: "Virtual Hug,",
     signature: "Cameron Goh, CEO FINETIKS",
     playLabel: "Play video",
@@ -98,30 +104,30 @@ export default function CeoLetter() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-[28px] border border-grape-tint-3/30 bg-white shadow-[0_24px_56px_rgba(24,24,27,0.08)]"
+          className="stamp-edge relative overflow-hidden bg-white shadow-[0_24px_56px_rgba(24,24,27,0.08)]"
         >
-          {/* Stamp — a little postal touch in the corner, like a hand-addressed letter */}
-          <div className="absolute right-6 top-6 z-10 hidden h-14 w-14 rotate-6 items-center justify-center rounded-md border-2 border-dashed border-grape-tint-3/60 bg-grape-tint-5/40 sm:flex lg:right-10 lg:top-10">
-            <HandHeart size={26} weight="fill" className="text-grape" />
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="p-5 sm:p-8 lg:p-10">
+            <div className="p-5 sm:p-8 lg:flex lg:items-center lg:p-10">
               <YoutubeFacade title={t.videoTitle} playLabel={t.playLabel} />
             </div>
 
-            <div className="flex flex-col justify-center gap-4 border-t border-dashed border-grape-tint-3/40 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
-              <p className="font-caveat text-3xl leading-tight text-grape-dark sm:text-4xl">
+            <div className="flex flex-col gap-4 border-t border-dashed border-grape-tint-3/40 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+              <p className="font-caveat text-3xl leading-tight text-text-primary sm:text-4xl">
                 {t.dear}
               </p>
-              <p className="font-montserrat text-[15px] leading-relaxed text-text-secondary sm:text-[16px]">
-                {t.paragraph}
-              </p>
+              {t.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="font-montserrat text-[15px] leading-relaxed text-text-secondary sm:text-[16px]"
+                >
+                  {paragraph}
+                </p>
+              ))}
               <div className="mt-2">
-                <p className="font-caveat text-2xl leading-none text-grape-dark sm:text-3xl">
+                <p className="font-caveat text-2xl leading-none text-text-primary sm:text-3xl">
                   {t.closingLabel}
                 </p>
-                <p className="font-caveat text-xl leading-none text-grape-dark/80 sm:text-2xl">
+                <p className="font-caveat text-xl leading-none text-text-primary/80 sm:text-2xl">
                   {t.signature}
                 </p>
               </div>

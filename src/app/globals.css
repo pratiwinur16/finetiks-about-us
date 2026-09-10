@@ -73,3 +73,30 @@ html {
   background-size: 250% 100%;
   animation: shield-shine 3.4s ease-in-out infinite;
 }
+
+/* Postage-stamp perforated edge: bites a ring of semicircular notches out of
+   all four sides. Each edge is its own repeating radial-gradient mask layer,
+   XOR'd (mask-composite: exclude) against a solid base layer — with an
+   opaque base, exclude reduces to "punch a hole wherever this layer is
+   opaque," which is what carves the notches out. White is used for the
+   "keep" stops (not black) so the mask reads correctly whether the browser
+   treats it as an alpha or luminance mask. */
+.stamp-edge {
+  --stamp-r: 7px;
+  --stamp-s: 22px;
+  mask-image:
+    radial-gradient(circle var(--stamp-r) at 50% 0, #fff 99%, transparent 100%),
+    radial-gradient(circle var(--stamp-r) at 50% 100%, #fff 99%, transparent 100%),
+    radial-gradient(circle var(--stamp-r) at 0 50%, #fff 99%, transparent 100%),
+    radial-gradient(circle var(--stamp-r) at 100% 50%, #fff 99%, transparent 100%),
+    linear-gradient(#fff, #fff);
+  mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y, no-repeat;
+  mask-position: top, bottom, left, right, 0 0;
+  mask-size:
+    var(--stamp-s) var(--stamp-r),
+    var(--stamp-s) var(--stamp-r),
+    var(--stamp-r) var(--stamp-s),
+    var(--stamp-r) var(--stamp-s),
+    100% 100%;
+  mask-composite: exclude, exclude, exclude, exclude, add;
+}
