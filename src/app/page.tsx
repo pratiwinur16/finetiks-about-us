@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import VisionMission from "@/components/VisionMission";
+import CeoLetter from "@/components/CeoLetter";
 import ImpactValues from "@/components/ImpactValues";
 import Leadership from "@/components/Leadership";
 import Banner from "@/components/Banner";
@@ -13,6 +14,7 @@ export default function Home() {
       <main className="flex w-full flex-col">
         <Hero />
         <VisionMission />
+        <CeoLetter />
         <ImpactValues />
         <Leadership />
         <Banner />
