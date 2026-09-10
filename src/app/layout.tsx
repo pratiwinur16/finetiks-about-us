@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Manrope, Montserrat } from "next/font/google";
+import { Poppins, Manrope, Montserrat, Caveat } from "next/font/google";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
 
@@ -21,6 +21,12 @@ const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
 });
 
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Tentang Kami — FINETIKS",
   description:
@@ -35,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${poppins.variable} ${manrope.variable} ${montserrat.variable} h-full antialiased`}
+      className={`${poppins.variable} ${manrope.variable} ${montserrat.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[#FEFEFE] font-poppins">
         <LanguageProvider>{children}</LanguageProvider>

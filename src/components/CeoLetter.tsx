@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Play } from "@phosphor-icons/react";
+import { Play, HandHeart } from "@phosphor-icons/react";
 import { useLanguage } from "./LanguageProvider";
 
 const YOUTUBE_ID = "83Evw94yZK0";
@@ -13,26 +13,22 @@ const COPY = {
     eyebrow: "SURAT DARI CEO",
     heading: "Pesan dari CEO Kami",
     videoTitle: "Letter from CEO: Jangan Tunggu Gagal Baru Sadar",
-    paragraphs: [
-      "Saya masih ingat betapa banyak orang di sekitar saya, termasuk keluarga dan teman sendiri, yang kesulitan mengelola keuangan meski sudah bekerja keras setiap hari. Setelah lebih dari 25 tahun berkarier di industri keuangan global, saya melihat ada jarak besar antara produk keuangan yang rumit dan kebutuhan nyata masyarakat untuk menabung serta merencanakan masa depan.",
-      "Dari situlah FINETIKS lahir — dari keyakinan sederhana bahwa setiap orang berhak merasa mengendalikan uangnya sendiri, bukan takut menghadapinya. Di video ini, saya berbagi cerita tentang perjalanan membangun FINETIKS, dari ide awal hingga menjadi platform yang kini membantu masyarakat Indonesia menabung dan mengelola keuangan dengan lebih baik.",
-      "Terima kasih telah menjadi bagian dari perjalanan ini.",
-    ],
-    signatureName: "Cameron Goh",
-    signatureRole: "CEO & Founder, FINETIKS",
+    dear: "Untuk Pengguna FINETIKS,",
+    paragraph:
+      "Setelah 25 tahun berkarier di industri keuangan global, saya melihat banyak orang — termasuk keluarga saya sendiri — kesulitan mengelola uang meski sudah bekerja keras. Dari situlah FINETIKS lahir: agar setiap orang bisa merasa mengendalikan uangnya, bukan takut menghadapinya.",
+    closingLabel: "Peluk virtual,",
+    signature: "Cameron Goh, CEO FINETIKS",
     playLabel: "Putar video",
   },
   en: {
     eyebrow: "LETTER FROM THE CEO",
     heading: "A Message From Our CEO",
     videoTitle: "Letter from CEO: Jangan Tunggu Gagal Baru Sadar",
-    paragraphs: [
-      "I still remember how many people around me — including my own family and friends — struggled to manage their money despite working hard every day. After more than 25 years in global financial services, I saw a real gap between complicated financial products and people's everyday need to save and plan for the future.",
-      "That's where FINETIKS came from — a simple belief that everyone deserves to feel in control of their money, not intimidated by it. In this video, I share the story of building FINETIKS, from the first idea to a platform that now helps Indonesians save and manage their money better.",
-      "Thank you for being part of this journey.",
-    ],
-    signatureName: "Cameron Goh",
-    signatureRole: "CEO & Founder, FINETIKS",
+    dear: "Dear FINETIKS Users,",
+    paragraph:
+      "After 25 years in global finance, I saw too many people — including my own family — struggle to manage money despite working hard. That's why FINETIKS exists: so everyone can feel in control of their money, not intimidated by it.",
+    closingLabel: "Virtual Hug,",
+    signature: "Cameron Goh, CEO FINETIKS",
     playLabel: "Play video",
   },
 };
@@ -41,7 +37,7 @@ function YoutubeFacade({ title, playLabel }: { title: string; playLabel: string 
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-[0_16px_40px_rgba(24,24,27,0.14)]">
+    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-[0_12px_30px_rgba(24,24,27,0.14)]">
       {playing ? (
         <iframe
           src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1`}
@@ -83,7 +79,7 @@ export default function CeoLetter() {
 
   return (
     <section className="w-full bg-[#F8FAFC] px-6 py-16 sm:py-24 lg:py-[128px]">
-      <div className="mx-auto flex max-w-[1128px] flex-col gap-16 lg:gap-20">
+      <div className="mx-auto flex max-w-[1128px] flex-col gap-12 lg:gap-14">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,40 +93,41 @@ export default function CeoLetter() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            <YoutubeFacade title={t.videoTitle} playLabel={t.playLabel} />
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-[28px] border border-grape-tint-3/30 bg-white shadow-[0_24px_56px_rgba(24,24,27,0.08)]"
+        >
+          {/* Stamp — a little postal touch in the corner, like a hand-addressed letter */}
+          <div className="absolute right-6 top-6 z-10 hidden h-14 w-14 rotate-6 items-center justify-center rounded-md border-2 border-dashed border-grape-tint-3/60 bg-grape-tint-5/40 sm:flex lg:right-10 lg:top-10">
+            <HandHeart size={26} weight="fill" className="text-grape" />
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-            className="flex flex-col gap-5"
-          >
-            {t.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="font-montserrat text-[16px] leading-relaxed text-text-secondary">
-                {paragraph}
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="p-5 sm:p-8 lg:p-10">
+              <YoutubeFacade title={t.videoTitle} playLabel={t.playLabel} />
+            </div>
+
+            <div className="flex flex-col justify-center gap-4 border-t border-dashed border-grape-tint-3/40 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+              <p className="font-caveat text-3xl leading-tight text-grape-dark sm:text-4xl">
+                {t.dear}
               </p>
-            ))}
-
-            <div className="mt-2 flex items-center gap-4">
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full">
-                <Image src="/images/team/cameron-goh.png" alt={t.signatureName} fill className="object-cover" />
-              </div>
-              <div>
-                <p className="font-poppins text-[16px] font-bold text-text-primary">{t.signatureName}</p>
-                <p className="font-montserrat text-sm text-text-tertiary">{t.signatureRole}</p>
+              <p className="font-montserrat text-[15px] leading-relaxed text-text-secondary sm:text-[16px]">
+                {t.paragraph}
+              </p>
+              <div className="mt-2">
+                <p className="font-caveat text-2xl leading-none text-grape-dark sm:text-3xl">
+                  {t.closingLabel}
+                </p>
+                <p className="font-caveat text-xl leading-none text-grape-dark/80 sm:text-2xl">
+                  {t.signature}
+                </p>
               </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
