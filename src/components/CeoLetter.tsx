@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Play } from "@phosphor-icons/react";
+import { Play, HandHeart } from "@phosphor-icons/react";
 import { useLanguage } from "./LanguageProvider";
 
 const YOUTUBE_ID = "83Evw94yZK0";
@@ -112,9 +112,14 @@ export default function CeoLetter() {
             </div>
 
             <div className="flex flex-col gap-4 border-t border-dashed border-grape-tint-3/40 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
-              <p className="font-caveat text-3xl leading-tight text-text-primary sm:text-4xl">
-                {t.dear}
-              </p>
+              <div className="flex items-start justify-between gap-4">
+                <p className="font-caveat text-3xl leading-tight text-text-primary sm:text-4xl">
+                  {t.dear}
+                </p>
+                <div className="hidden h-14 w-14 shrink-0 rotate-6 items-center justify-center rounded-xl border-2 border-dashed border-grape-tint-3/60 bg-grape-tint-5/40 sm:flex">
+                  <HandHeart size={26} weight="fill" className="text-grape" />
+                </div>
+              </div>
               {t.paragraphs.map((paragraph) => (
                 <p
                   key={paragraph}
