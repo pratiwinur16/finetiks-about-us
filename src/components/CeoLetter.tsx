@@ -84,7 +84,7 @@ export default function CeoLetter() {
   const t = COPY[lang];
 
   return (
-    <section className="w-full bg-[#F8FAFC] px-6 py-16 sm:py-24 lg:py-[128px]">
+    <section className="w-full bg-[#EEF0F8] px-6 py-16 sm:py-24 lg:py-[128px]">
       <div className="mx-auto flex max-w-[1128px] flex-col gap-12 lg:gap-14">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -104,7 +104,7 @@ export default function CeoLetter() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="stamp-edge relative overflow-hidden bg-white shadow-[0_24px_56px_rgba(24,24,27,0.08)]"
+          className="stamp-edge relative bg-white [filter:drop-shadow(0_2px_0_rgba(24,24,27,0.08))_drop-shadow(0_20px_40px_rgba(24,24,27,0.18))]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="p-5 sm:p-8 lg:flex lg:items-center lg:p-10">

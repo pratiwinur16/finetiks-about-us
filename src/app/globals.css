@@ -82,8 +82,8 @@ html {
    "keep" stops (not black) so the mask reads correctly whether the browser
    treats it as an alpha or luminance mask. */
 .stamp-edge {
-  --stamp-r: 7px;
-  --stamp-s: 22px;
+  --stamp-r: 11px;
+  --stamp-s: 28px;
   mask-image:
     radial-gradient(circle var(--stamp-r) at 50% 0, #fff 99%, transparent 100%),
     radial-gradient(circle var(--stamp-r) at 50% 100%, #fff 99%, transparent 100%),
