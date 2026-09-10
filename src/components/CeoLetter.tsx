@@ -13,6 +13,10 @@ const COPY = {
     eyebrow: "SURAT DARI CEO",
     heading: "Pesan dari CEO Kami",
     videoTitle: "Letter from CEO: Jangan Tunggu Gagal Baru Sadar",
+    toLabel: "To:",
+    toValue: "Seluruh Pengguna FINETIKS Tercinta",
+    fromLabel: "From:",
+    fromValue: "FINETIKS",
     dear: "Untuk Pengguna FINETIKS,",
     paragraphs: [
       "Saya masih ingat betapa banyak orang di sekitar saya, termasuk keluarga dan teman sendiri, yang kesulitan mengelola keuangan meski sudah bekerja keras setiap hari. Setelah lebih dari 25 tahun berkarier di industri keuangan global, saya melihat ada jarak besar antara produk keuangan yang rumit dan kebutuhan nyata masyarakat untuk menabung serta merencanakan masa depan.",
@@ -27,6 +31,10 @@ const COPY = {
     eyebrow: "LETTER FROM THE CEO",
     heading: "A Message From Our CEO",
     videoTitle: "Letter from CEO: Jangan Tunggu Gagal Baru Sadar",
+    toLabel: "To:",
+    toValue: "Our Beloved FINETIKS Users",
+    fromLabel: "From:",
+    fromValue: "FINETIKS",
     dear: "Dear FINETIKS Users,",
     paragraphs: [
       "I still remember how many people around me — including my own family and friends — struggled to manage their money despite working hard every day. After more than 25 years in global financial services, I saw a real gap between complicated financial products and people's everyday need to save and plan for the future.",
@@ -107,8 +115,23 @@ export default function CeoLetter() {
           className="stamp-edge relative bg-white [filter:drop-shadow(0_2px_0_rgba(24,24,27,0.08))_drop-shadow(0_20px_40px_rgba(24,24,27,0.18))]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="p-5 sm:p-8 lg:flex lg:items-center lg:p-10">
+            <div className="flex flex-col gap-6 p-5 sm:p-8 lg:justify-center lg:p-10">
               <YoutubeFacade title={t.videoTitle} playLabel={t.playLabel} />
+
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1">
+                  <p className="font-caveat text-lg text-text-tertiary">{t.toLabel}</p>
+                  <p className="border-b border-dashed border-grape-tint-3/60 pb-1 font-caveat text-2xl text-text-primary">
+                    {t.toValue}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="font-caveat text-lg text-text-tertiary">{t.fromLabel}</p>
+                  <p className="border-b border-dashed border-grape-tint-3/60 pb-1 font-caveat text-2xl text-text-primary">
+                    {t.fromValue}
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-col gap-4 border-t border-dashed border-grape-tint-3/40 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
